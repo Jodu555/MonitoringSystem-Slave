@@ -9,12 +9,14 @@ const socket = io('http://localhost:3000');
 
 socket.on('connect', () => {
     console.log('Connected');
+    socket.emit('auth', { auth_token: 'KEY-FROM-CONFIG-FILE' });
     socket.on('action', async (msg) => {
         console.log('ACTION:', msg);
         if (msg == PERSISTENT_DATA) {
             socket.emit('data', getPersistentData());
         } else if (msg == CHANGE_DATA) {
-            socket.emit('data', await getChangeData());
+            const data = await getChangeData()
+            socket.emit('data', data);
         }
     });
 });
