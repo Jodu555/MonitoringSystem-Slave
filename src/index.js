@@ -9,14 +9,14 @@ const socket = io('http://localhost:3000');
 
 socket.on('connect', () => {
     console.log('Connected');
-    socket.on('action', (msg) => {
+    socket.on('action', async (msg) => {
         console.log('ACTION:', msg);
         if (msg == PERSISTENT_DATA) {
             socket.emit('data', getPersistentData());
         } else if (msg == CHANGE_DATA) {
-            socket.emit('data', getChangeData());
+            socket.emit('data', await getChangeData());
         }
-    })
+    });
 });
 
 function getPersistentData() {
