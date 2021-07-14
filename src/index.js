@@ -1,15 +1,33 @@
+const fs = require('fs');
 const machineInfo = require('./machineInfo');
 const os = require('os');
 const io = require("socket.io-client");
 
+//Config Stuff
+let config;
+if (fs.existsSync('config.json')) {
+    config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
+} else {
+    config = {
+        key: 'INSERT-YOUR-KEY-HERE'
+    };
+    fs.writeFileSync('config.json', JSON.stringify(config));
+}
+
 const PERSISTENT_DATA = 'PERSISTENT_DATA';
 const CHANGE_DATA = 'CHANGE_DATA';
-
 const socket = io('http://localhost:3000');
+
 
 socket.on('connect', () => {
     console.log('Connected');
-    socket.emit('auth', { auth_token: 'KEY-FROM-CONFIG-FILE' });
+    socket.on('disconnect', () => {
+        console.log('Disconnected');
+    });
+    socket.on('auth', (data) => {
+        console.log('Authentication:', data ? 'Success!' : 'Failed');
+    });
+    socket.emit('auth', { auth_token: config.key });
     socket.on('action', async (msg) => {
         console.log('ACTION:', msg);
         if (msg == PERSISTENT_DATA) {
