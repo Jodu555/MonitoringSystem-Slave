@@ -16,7 +16,7 @@ if (fs.existsSync('config.json')) {
 
 const PERSISTENT_DATA = 'PERSISTENT_DATA';
 const CHANGE_DATA = 'CHANGE_DATA';
-const socket = io('http://localhost:3000');
+const socket = io(config.coreIP);
 
 
 socket.on('connect', () => {
