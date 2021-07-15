@@ -22,6 +22,7 @@ const socket = io('http://localhost:3000');
 socket.on('connect', () => {
     console.log('Connected');
     socket.on('disconnect', () => {
+        socket.removeAllEventListeners();
         console.log('Disconnected');
     });
     socket.on('auth', (data) => {
