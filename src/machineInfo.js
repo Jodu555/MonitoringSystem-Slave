@@ -42,6 +42,10 @@ function getUptimeInSeconds() {
     return os.uptime();
 }
 
+function getLoadAvarage() {
+    return os.loadavg();
+}
+
 function getRegisteredIPs() {
     let ifaces = os.networkInterfaces();
     return Object.keys(ifaces).reduce((result, value) => {
@@ -66,6 +70,7 @@ module.exports = {
     getCPU,
     getMemoryInfo,
     getUptimeInSeconds,
+    getLoadAvarage,
     getHostInfo,
     getRegisteredIPs
 }

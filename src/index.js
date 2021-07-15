@@ -9,6 +9,7 @@ if (fs.existsSync('config.json')) {
     config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
 } else {
     config = {
+        coreIP: 'http://localhost:3000',
         key: 'INSERT-YOUR-KEY-HERE'
     };
     fs.writeFileSync('config.json', JSON.stringify(config));
@@ -51,20 +52,11 @@ function getPersistentData() {
 async function getChangeData() {
     return {
         type: CHANGE_DATA,
-        loadavg: os.loadavg(),
+        loadavg: machineInfo.getLoadAvarage(),
         uptime: machineInfo.getUptimeInSeconds(),
         memory: machineInfo.getMemoryInfo(),
         cpu: await machineInfo.getCPU(),
     };
 }
-
-// console.log('IPS: ', machineInfo.getRegisteredIPs());
-// console.log('HOST: ', machineInfo.getHostInfo());
-// console.log('LOAD-AVG: ', os.loadavg());
-// console.log('UPTIME: ', machineInfo.getUptimeInSeconds());
-// console.log('memory: ', machineInfo.getMemoryInfo());
-// (async () => {
-//     console.log('CPU: ', await machineInfo.getCPU());
-// })();
 
 
