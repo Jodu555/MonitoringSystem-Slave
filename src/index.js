@@ -22,23 +22,23 @@ const socket = io(config.coreIP);
 
 socket.on('connect', () => {
     console.log('Connected');
-    socket.on('disconnect', () => {
-        console.log('Disconnected');
-    });
-    socket.emit('type', { type: 'slave' })
-    socket.on('auth', (data) => {
-        console.log('Authentication:', data ? 'Success!' : 'Failed');
-    });
-    socket.emit('auth', { auth_token: config.key });
-    socket.on('action', async (msg) => {
-        console.log('ACTION:', msg);
-        if (msg == PERSISTENT_DATA) {
-            socket.emit('data', getPersistentData());
-        } else if (msg == CHANGE_DATA) {
-            const data = await getChangeData()
-            socket.emit('data', data);
-        }
-    });
+});
+socket.on('disconnect', () => {
+    console.log('Disconnected');
+});
+socket.emit('type', { type: 'slave' })
+socket.on('auth', (data) => {
+    console.log('Authentication:', data ? 'Success!' : 'Failed');
+});
+socket.emit('auth', { auth_token: config.key });
+socket.on('action', async (msg) => {
+    console.log('ACTION:', msg);
+    if (msg == PERSISTENT_DATA) {
+        socket.emit('data', getPersistentData());
+    } else if (msg == CHANGE_DATA) {
+        const data = await getChangeData()
+        socket.emit('data', data);
+    }
 });
 
 function getPersistentData() {
