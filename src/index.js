@@ -23,7 +23,6 @@ const socket = io(config.coreIP);
 socket.on('connect', () => {
     console.log('Connected');
     socket.on('disconnect', () => {
-        socket.removeAllEventListeners();
         console.log('Disconnected');
     });
     socket.emit('type', { type: 'slave' })
