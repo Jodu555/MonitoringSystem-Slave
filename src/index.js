@@ -26,6 +26,7 @@ socket.on('connect', () => {
         socket.removeAllEventListeners();
         console.log('Disconnected');
     });
+    socket.emit('type', { type: 'slave' })
     socket.on('auth', (data) => {
         console.log('Authentication:', data ? 'Success!' : 'Failed');
     });
