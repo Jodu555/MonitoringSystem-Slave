@@ -12,7 +12,7 @@ if (fs.existsSync('config.json')) {
         coreIP: 'http://localhost:3000',
         key: 'INSERT-YOUR-KEY-HERE'
     };
-    fs.writeFileSync('config.json', JSON.stringify(config));
+    fs.writeFileSync('config.json', JSON.stringify(config, null, 3));
 }
 
 const PERSISTENT_DATA = 'PERSISTENT_DATA';
