@@ -2,6 +2,7 @@ const fs = require('fs');
 const machineInfo = require('./machineInfo');
 const os = require('os');
 const io = require("socket.io-client");
+const startup = Date.now();
 
 //Config Stuff
 let config;
