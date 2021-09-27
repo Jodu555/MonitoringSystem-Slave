@@ -26,9 +26,9 @@ class socketManager {
         this.socket.on('action', async (msg) => {
             console.log('ACTION:', msg);
             if (msg == PERSISTENT_DATA) {
-                this.socket.emit('data', getPersistentData());
+                this.socket.emit('data', this.getPersistentData());
             } else if (msg == CHANGE_DATA) {
-                const data = await getChangeData()
+                const data = await this.getChangeData()
                 this.socket.emit('data', data);
             }
         });
