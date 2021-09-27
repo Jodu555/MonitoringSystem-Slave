@@ -1,6 +1,7 @@
 class Command {
-    constructor(command, description, callback) {
+    constructor(command, usage, description, callback) {
         this.command = command;
+        this.usage = usage;
         this.description = description;
         this.callback = callback;
     }
@@ -22,8 +23,7 @@ function fixStdoutFor(cli) {
     process.__defineGetter__('stdout', function () { return newStdout; });
 }
 
-
-var cli = require('readline').createInterface(process.stdin, process.stdout);
+const cli = require('readline').createInterface(process.stdin, process.stdout);
 fixStdoutFor(cli);
 cli.setPrompt("> ", 2);
 cli.on('line', (line) => {
@@ -41,9 +41,14 @@ function registerCommand(command) {
 }
 
 // Imagine on how the command system should work
-registerCommand(new Command('help', 'Description', (command, args, sender) => {
-    console.log('command ', args.join(', '));
-    console.log('Help');
+registerCommand(new Command('help', 'help [all, tiny]', 'Description', (command, args, sender) => {
+    console.log(' ------------------- HELP -------------------');
+    console.log(' ');
+    commands.forEach(command => {
+        console.log('=> ' + command.command + ' : ' + command.usage + ' : ' + command.description);
+    });
+    console.log(' ');
+    console.log(' ------------------- HELP -------------------');
 }))
 
 setInterval(() => { console.log("log message") }, 5000);
