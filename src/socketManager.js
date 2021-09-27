@@ -16,27 +16,27 @@ class socketManager {
     setup() {
         this.socket = io(this.config.coreIP);
 
-        socket.on('disconnect', () => {
+        this.socket.on('disconnect', () => {
             console.log('Disconnected');
         });
-        socket.on('auth', (data) => {
+        this.socket.on('auth', (data) => {
             this.auth = data;
             console.log('Authentication:', data ? 'Success!' : 'Failed');
         });
-        socket.on('action', async (msg) => {
+        this.socket.on('action', async (msg) => {
             console.log('ACTION:', msg);
             if (msg == PERSISTENT_DATA) {
-                socket.emit('data', getPersistentData());
+                this.socket.emit('data', getPersistentData());
             } else if (msg == CHANGE_DATA) {
                 const data = await getChangeData()
-                socket.emit('data', data);
+                this.socket.emit('data', data);
             }
         });
 
-        socket.on('connect', () => {
+        this.socket.on('connect', () => {
             console.log('Connected');
-            socket.emit('type', { type: 'slave' })
-            socket.emit('auth', { auth_token: this.config.key });
+            this.socket.emit('type', { type: 'slave' })
+            this.socket.emit('auth', { auth_token: this.config.key });
         });
 
 
