@@ -1,3 +1,12 @@
+class Command {
+    constructor(command, description, callback) {
+        this.command = command;
+        this.description = description;
+        this.callback = callback;
+    }
+}
+
+
 function fixStdoutFor(cli) {
     const oldStdout = process.stdout;
     const newStdout = Object.create(oldStdout);
@@ -18,14 +27,24 @@ var cli = require('readline').createInterface(process.stdin, process.stdout);
 fixStdoutFor(cli);
 cli.setPrompt("> ", 2);
 cli.on('line', (line) => {
-    console.log('Inserted:', line);
+    const command = line.split(' ')[0].toLowerCase().trim();
+    if (commands.has(command))
+        commands.get(command).callback(command, line.split(' '), 'USER');
     cli.prompt();
 });
 cli.prompt();
 
-//Imagine on how the command system should work
-//registerCommand(new Command('help', 'Description', (command, args, sender) => { 
-// 
-// }))
+const commands = new Map();
 
-setInterval(() => { console.log("log message") }, 1000);
+function registerCommand(command) {
+    commands.set(command.command.toLowerCase(), command);
+}
+
+// Imagine on how the command system should work
+registerCommand(new Command('help', 'Description', (command, args, sender) => {
+    console.log('command ', args.join(', '));
+    console.log('Help');
+}))
+
+setInterval(() => { console.log("log message") }, 5000);
+
