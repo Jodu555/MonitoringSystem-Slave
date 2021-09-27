@@ -13,7 +13,7 @@ if (fs.existsSync('config.json')) {
     fs.writeFileSync('config.json', JSON.stringify(config, null, 3));
 }
 
-const SocketManager = require('./socketManager')(config);
+const SocketManager = new require('./socketManager')(config);
 
 
 
