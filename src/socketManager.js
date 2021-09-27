@@ -10,6 +10,7 @@ class socketManager {
     constructor(config) {
         this.config = config;
         this.auth = false;
+        this.setup();
     }
 
     setup() {
