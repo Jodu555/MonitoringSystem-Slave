@@ -26,6 +26,19 @@ class commandManager {
             cli.prompt();
         });
         cli.prompt();
+        this.initializeDefaultCommands();
+    }
+
+    initializeDefaultCommands() {
+        this.registerCommand(new Command('help', 'help [all, tiny]', 'Description', (command, args, sender) => {
+            console.log(' ------------------- HELP -------------------');
+            console.log(' ');
+            CommandManager.commands.forEach(command => {
+                console.log('=> ' + command.command + ' : ' + command.usage + ' : ' + command.description);
+            });
+            console.log(' ');
+            console.log(' ------------------- HELP -------------------');
+        }))
     }
 
     fixStdoutFor(cli) {
@@ -51,15 +64,6 @@ class commandManager {
 const CommandManager = new commandManager(process.stdin, process.stdout);
 
 // Imagine on how the command system should work
-CommandManager.registerCommand(new Command('help', 'help [all, tiny]', 'Description', (command, args, sender) => {
-    console.log(' ------------------- HELP -------------------');
-    console.log(' ');
-    CommandManager.commands.forEach(command => {
-        console.log('=> ' + command.command + ' : ' + command.usage + ' : ' + command.description);
-    });
-    console.log(' ');
-    console.log(' ------------------- HELP -------------------');
-}))
 
 setInterval(() => { console.log("log message") }, 5000);
 
