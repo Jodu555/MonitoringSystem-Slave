@@ -6,13 +6,11 @@ const CHANGE_DATA = 'CHANGE_DATA';
 
 
 class socketManager {
-
     constructor(config) {
         this.config = config;
         this.auth = false;
         this.setup();
     }
-
     setup() {
         this.socket = io(this.config.coreIP);
 
@@ -41,7 +39,6 @@ class socketManager {
 
 
     }
-
     getPersistentData() {
         return {
             type: PERSISTENT_DATA,
