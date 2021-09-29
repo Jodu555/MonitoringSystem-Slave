@@ -21,10 +21,13 @@ class commandManager {
         const cli = require('readline').createInterface(this.streamIn, this.streamOut);
         this.fixStdoutFor(cli);
         cli.setPrompt("> ", 2);
+        let backmessage;
         cli.on('line', (line) => {
             const command = line.split(' ')[0].toLowerCase().trim();
             if (this.commands.has(command))
-                this.commands.get(command).callback(command, line.split(' '), 'USER');
+                backmessage = this.commands.get(command).callback(command, line.split(' '), 'USER');
+            if (backmessage)
+                console.log(backmessage);
             cli.prompt();
         });
         cli.prompt();

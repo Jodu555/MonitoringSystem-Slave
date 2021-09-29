@@ -39,6 +39,13 @@ class socketManager {
 
 
     }
+    configChange(config) {
+        this.auth = false;
+        this.config = config;
+        this.socket.disconnect();
+        this.socket = null;
+        this.setup();
+    }
     getPersistentData() {
         return {
             type: PERSISTENT_DATA,

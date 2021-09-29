@@ -25,19 +25,27 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
 }));
 
 CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]', 'Sets the Config value\'s!', (cmd, args) => {
+    if (!args[1])
+        return 'Please provide a key!';
     const key = args[1].toLowerCase();
     const value = args[2];
+    if (!value)
+        return 'Please provide a value!';
     if (key == 'authkey' || key == 'key') {
         config.key = value;
-        console.log('Auth Key Set to: ' + value);
+        SocketManager.configChange(config);
+        fs.writeFileSync('config.json', JSON.stringify(config, null, 3));
+        return 'Auth Key Set to: ' + value;
     }
     if (key == 'coreip' || key == 'ip') {
         config.coreIP = value;
-        console.log('Core IP Set to: ' + value);
+        SocketManager.configChange(config);
+        fs.writeFileSync('config.json', JSON.stringify(config, null, 3));
+        return 'Core IP Set to: ' + value;
     }
 
-    fs.writeFileSync('config.json', JSON.stringify(config, null, 3));
-    console.log('The key dont exists!');
+
+    return 'The key dont exists!';
 }));
 
 
