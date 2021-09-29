@@ -1,5 +1,6 @@
 const fs = require('fs');
 const startup = Date.now();
+const { commandManager, Command } = require('./commandManager');
 
 //Config Stuff
 let config;
@@ -13,8 +14,11 @@ if (fs.existsSync('config.json')) {
     fs.writeFileSync('config.json', JSON.stringify(config, null, 3));
 }
 
+const CommandManager = new commandManager(process.stdin, process.stdout);
+
 const socketManager = require('./socketManager');
 const SocketManager = new socketManager(config);
+
 
 
 
