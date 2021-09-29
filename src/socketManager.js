@@ -31,7 +31,6 @@ class socketManager {
                 this.socket.emit('data', data);
             }
         });
-
         this.socket.on('connect', () => {
             console.log('Connected');
             this.socket.emit('type', { type: 'slave' })
