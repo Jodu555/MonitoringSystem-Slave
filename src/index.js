@@ -17,7 +17,11 @@ if (fs.existsSync('config.json')) {
 const CommandManager = new commandManager(process.stdin, process.stdout);
 
 const socketManager = require('./socketManager');
-const SocketManager = new socketManager(config);
+const SocketManager = new socketManager(config, CommandManager);
+
+CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the second time the system is running!', () => {
+    console.log(startup - Date.now() * 1000);
+}))
 
 
 

@@ -6,8 +6,9 @@ const CHANGE_DATA = 'CHANGE_DATA';
 
 
 class socketManager {
-    constructor(config) {
+    constructor(config, commandManager) {
         this.config = config;
+        this.commandManager = commandManager;
         this.auth = false;
         this.setup();
     }
