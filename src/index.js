@@ -20,7 +20,7 @@ const socketManager = require('./socketManager');
 const SocketManager = new socketManager(config, CommandManager);
 
 CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the second time the system is running!', () => {
-    console.log(Date.now() - startup * 1000);
+    console.log(Date.now() - startup / 1000);
 }))
 
 
