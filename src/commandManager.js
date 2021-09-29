@@ -32,7 +32,7 @@ class commandManager {
     }
 
     initializeDefaultCommands() {
-        this.registerCommand(new Command('help', 'help [all, tiny]', 'Description', (command, args, sender) => {
+        this.registerCommand(new Command('help', 'help', 'Description', (command, args, sender) => {
             console.log(' ------------------- HELP -------------------');
             console.log(' ');
             this.commands.forEach(command => {
