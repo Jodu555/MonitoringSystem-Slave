@@ -35,7 +35,7 @@ class commandManager {
         this.registerCommand(new Command('help', 'help [all, tiny]', 'Description', (command, args, sender) => {
             console.log(' ------------------- HELP -------------------');
             console.log(' ');
-            CommandManager.commands.forEach(command => {
+            this.commands.forEach(command => {
                 console.log('=> ' + command.command + ' : ' + command.usage + ' : ' + command.description);
             });
             console.log(' ');
