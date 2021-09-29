@@ -1,3 +1,5 @@
+//INFO: fixStdoutFor function from: https://stackoverflow.com/questions/10606814/readline-with-console-log-in-the-background
+
 class Command {
     constructor(command, usage, description, callback) {
         this.command = command;
