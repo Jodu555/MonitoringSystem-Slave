@@ -19,9 +19,15 @@ const CommandManager = new commandManager(process.stdin, process.stdout);
 const socketManager = require('./socketManager');
 const SocketManager = new socketManager(config, CommandManager);
 
+// SocketManager.socket.io._readyState == 'open'
+
 CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the second time the system is running!', () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
     console.log('The system is running since ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!');
+}));
+
+CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', () => {
+
 }));
 
 CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]', 'Sets the Config value\'s!', (cmd, args) => {
@@ -43,8 +49,6 @@ CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]'
         fs.writeFileSync('config.json', JSON.stringify(config, null, 3));
         return 'Core IP Set to: ' + value;
     }
-
-
     return 'The key dont exists!';
 }));
 

@@ -26,8 +26,13 @@ class commandManager {
             const command = line.split(' ')[0].toLowerCase().trim();
             if (this.commands.has(command))
                 backmessage = this.commands.get(command).callback(command, line.split(' '), 'USER');
-            if (backmessage)
-                console.log(backmessage);
+            if (backmessage) {
+                if (Array.isArray(backmessage))
+                    backmessage.forEach(msg => console.log(msg));
+                if (!Array.isArray(backmessage))
+                    console.log(backmessage);
+            }
+
             cli.prompt();
         });
         cli.prompt();
