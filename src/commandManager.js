@@ -32,7 +32,6 @@ class commandManager {
                 if (!Array.isArray(backmessage))
                     console.log(backmessage);
             }
-
             cli.prompt();
         });
         cli.prompt();

@@ -27,7 +27,11 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
 }));
 
 CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', () => {
-
+    return [
+        'General Information:',
+        'Socket Connected: ' + (SocketManager.socket.io._readyState == 'open' ? 'Opened' : 'Closed'),
+        'Uptime: ' + seconds + ' second' + (seconds > 1 ? 's' : ''),
+    ];
 }));
 
 CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]', 'Sets the Config value\'s!', (cmd, args) => {
