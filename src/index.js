@@ -25,7 +25,7 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
     return [
-        'The system is running since ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!',
+        'The System is running since ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!',
         'The Machine is ruinning since ' + uptime + ' second' + (uptime > 1 ? 's' : '') + '!'
     ]
 }));
@@ -33,8 +33,13 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
 CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
+    const persistentData = SocketManager.getPersistentData();
+    console.log(SocketManager.getPersistentData().host);
     return [
         'General Information:',
+        'Hostname: ' + persistentData.host.hostname,
+        'Platform: ' + persistentData.host.platform,
+        'Home Directory: ' + persistentData.host.homedir,
         'Socket Connected: ' + (SocketManager.socket.io._readyState == 'open' ? 'Opened' : 'Closed'),
         'System Uptime: ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!',
         'Machine Uptime: ' + uptime + ' second' + (uptime > 1 ? 's' : '') + '!',
