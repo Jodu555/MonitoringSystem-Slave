@@ -19,14 +19,12 @@ const CommandManager = new commandManager(process.stdin, process.stdout);
 const socketManager = require('./socketManager');
 const SocketManager = new socketManager(config, CommandManager);
 
-// SocketManager.socket.io._readyState == 'open'
-
 CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the second time the system is running!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
     return [
-        'The System is running since ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!',
-        'The Machine is ruinning since ' + uptime + ' second' + (uptime > 1 ? 's' : '') + '!'
+        'The System is running since ' + secondsToNiceString(seconds),
+        'The Machine is ruinning since ' + secondsToNiceString(uptime),
     ]
 }));
 
@@ -34,15 +32,14 @@ CommandManager.registerCommand(new Command('info', 'info', 'Displays general inf
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
     const persistentData = SocketManager.getPersistentData();
-    console.log(SocketManager.getPersistentData().host);
     return [
         'General Information:',
         'Hostname: ' + persistentData.host.hostname,
         'Platform: ' + persistentData.host.platform,
         'Home Directory: ' + persistentData.host.homedir,
         'Socket Connected: ' + (SocketManager.socket.io._readyState == 'open' ? 'Opened' : 'Closed'),
-        'System Uptime: ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!',
-        'Machine Uptime: ' + uptime + ' second' + (uptime > 1 ? 's' : '') + '!',
+        'System Uptime: ' + secondsToNiceString(seconds),
+        'Machine Uptime: ' + secondsToNiceString(uptime),
     ];
 }));
 
