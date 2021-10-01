@@ -70,7 +70,14 @@ CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]'
 
 // console.log(secondsToAllOthersString(31245));
 
-
+function secondsToAllOthersString(seconds) {
+    const obj = secondsToAllOthers(seconds);
+    console.log(obj);
+    return (obj.days ? obj.days + ' Day' + (obj.days > 1 ? 's ' : ' ') : ' ') +
+        (obj.hours ? obj.hours + ' Hour' + (obj.hours > 1 ? 's ' : ' ') : ' ') +
+        (obj.minutes ? obj.minutes + ' Minute' + (obj.minutes > 1 ? 's ' : ' ') : ' ') +
+        (obj.seconds ? obj.seconds + ' Second' + (obj.seconds > 1 ? 's ' : ' ') : ' ')
+}
 
 function secondsToAllOthers(seconds) {
     seconds = parseInt(seconds, 10);
