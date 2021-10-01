@@ -21,17 +21,23 @@ const SocketManager = new socketManager(config, CommandManager);
 
 // SocketManager.socket.io._readyState == 'open'
 
-CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the second time the system is running!', () => {
+CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the second time the system is running!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
-    console.log('The system is running since ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!');
+    const uptime = (await SocketManager.getChangeData()).uptime;
+    return [
+        'The system is running since ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!',
+        'The Machine is ruinning since ' + uptime + ' second' + (uptime > 1 ? 's' : '') + '!'
+    ]
 }));
 
-CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', () => {
+CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
+    const uptime = (await SocketManager.getChangeData()).uptime;
     return [
         'General Information:',
         'Socket Connected: ' + (SocketManager.socket.io._readyState == 'open' ? 'Opened' : 'Closed'),
-        'Uptime: ' + seconds + ' second' + (seconds > 1 ? 's' : ''),
+        'System Uptime: ' + seconds + ' second' + (seconds > 1 ? 's' : '') + '!',
+        'Machine Uptime: ' + uptime + ' second' + (uptime > 1 ? 's' : '') + '!',
     ];
 }));
 

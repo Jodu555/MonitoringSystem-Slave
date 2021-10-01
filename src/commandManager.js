@@ -27,10 +27,13 @@ class commandManager {
             if (this.commands.has(command))
                 backmessage = this.commands.get(command).callback(command, line.split(' '), 'USER');
             if (backmessage) {
-                if (Array.isArray(backmessage))
-                    backmessage.forEach(msg => console.log(msg));
-                if (!Array.isArray(backmessage))
-                    console.log(backmessage);
+                Promise.resolve(backmessage).then((message) => {
+                    if (Array.isArray(message))
+                        message.forEach(msg => console.log(msg));
+                    if (!Array.isArray(message))
+                        console.log(message);
+                })
+
             }
             cli.prompt();
         });
