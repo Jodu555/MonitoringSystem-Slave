@@ -68,7 +68,24 @@ CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]'
     return 'The key dont exists!';
 }));
 
+// console.log(secondsToAllOthersString(31245));
 
 
+
+function secondsToAllOthers(seconds) {
+    seconds = parseInt(seconds, 10);
+    const days = Math.floor(seconds / (3600 * 24));
+    seconds -= days * 3600 * 24;
+    const hours = Math.floor(seconds / 3600);
+    seconds -= hours * 3600;
+    const minutes = Math.floor(seconds / 60);
+    seconds -= minutes * 60;
+    return {
+        days,
+        hours,
+        minutes,
+        seconds
+    }
+}
 
 
