@@ -68,10 +68,8 @@ CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]'
     return 'The key dont exists!';
 }));
 
-// console.log(secondsToAllOthersString(31245));
-
-function secondsToAllOthersString(seconds) {
-    const obj = secondsToAllOthers(seconds);
+function secondsToNiceString(seconds) {
+    const obj = secondsStrippedInObject(seconds);
     console.log(obj);
     return (obj.days ? obj.days + ' Day' + (obj.days > 1 ? 's ' : ' ') : ' ') +
         (obj.hours ? obj.hours + ' Hour' + (obj.hours > 1 ? 's ' : ' ') : ' ') +
@@ -79,7 +77,7 @@ function secondsToAllOthersString(seconds) {
         (obj.seconds ? obj.seconds + ' Second' + (obj.seconds > 1 ? 's ' : ' ') : ' ')
 }
 
-function secondsToAllOthers(seconds) {
+function secondsStrippedInObject(seconds) {
     seconds = parseInt(seconds, 10);
     const days = Math.floor(seconds / (3600 * 24));
     seconds -= days * 3600 * 24;
