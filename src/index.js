@@ -27,6 +27,7 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
 }));
 
 CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', () => {
+    const seconds = Math.round((Date.now() - startup) / 1000);
     return [
         'General Information:',
         'Socket Connected: ' + (SocketManager.socket.io._readyState == 'open' ? 'Opened' : 'Closed'),
