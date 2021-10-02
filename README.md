@@ -6,4 +6,4 @@
     * [ ] Possible Commands: log [-f: follow] / info / edit [auth, coreIp] / 
     * [x] Core IP edit
     * [x] Auth Key edit
-    * [ ] General Informations about connections and maybe also some delay
+    * [x] General Informations about connections and maybe also some delay

@@ -67,7 +67,6 @@ CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]'
 
 function secondsToNiceString(seconds) {
     const obj = secondsStrippedInObject(seconds);
-    console.log(obj);
     return (obj.days ? obj.days + ' Day' + (obj.days > 1 ? 's ' : ' ') : ' ') +
         (obj.hours ? obj.hours + ' Hour' + (obj.hours > 1 ? 's ' : ' ') : ' ') +
         (obj.minutes ? obj.minutes + ' Minute' + (obj.minutes > 1 ? 's ' : ' ') : ' ') +
