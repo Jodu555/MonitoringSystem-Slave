@@ -28,6 +28,10 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
     ]
 }));
 
+CommandManager.registerCommand(new Command('log', 'log -f', 'Displays the log -f means to follow the log', () => {
+
+}));
+
 CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
@@ -68,10 +72,10 @@ CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]'
 
 function secondsToNiceString(seconds) {
     const obj = secondsStrippedInObject(seconds);
-    return (obj.days ? obj.days + ' Day' + (obj.days > 1 ? 's ' : ' ') : ' ') +
+    return ((obj.days ? obj.days + ' Day' + (obj.days > 1 ? 's ' : ' ') : ' ') +
         (obj.hours ? obj.hours + ' Hour' + (obj.hours > 1 ? 's ' : ' ') : ' ') +
         (obj.minutes ? obj.minutes + ' Minute' + (obj.minutes > 1 ? 's ' : ' ') : ' ') +
-        (obj.seconds ? obj.seconds + ' Second' + (obj.seconds > 1 ? 's ' : ' ') : ' ')
+        (obj.seconds ? obj.seconds + ' Second' + (obj.seconds > 1 ? 's ' : ' ') : ' ')).trim();
 }
 
 function secondsStrippedInObject(seconds) {
