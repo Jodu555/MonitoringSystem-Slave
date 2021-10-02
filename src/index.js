@@ -37,7 +37,8 @@ CommandManager.registerCommand(new Command('info', 'info', 'Displays general inf
         'Hostname: ' + persistentData.host.hostname,
         'Platform: ' + persistentData.host.platform,
         'Home Directory: ' + persistentData.host.homedir,
-        'Socket Connected: ' + (SocketManager.socket.io._readyState == 'open' ? 'Opened' : 'Closed'),
+        'Socket Connected: ' + (SocketManager.socket.connected ? 'Opened' : 'Closed'),
+        'Socket Authenticated: ' + (SocketManager.auth ? 'Authenticated' : 'Unauthenticated'),
         'System Uptime: ' + secondsToNiceString(seconds),
         'Machine Uptime: ' + secondsToNiceString(uptime),
     ];
