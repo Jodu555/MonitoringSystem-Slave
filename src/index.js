@@ -28,8 +28,15 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
     ]
 }));
 
-CommandManager.registerCommand(new Command('log', 'log -f', 'Displays the log -f means to follow the log', () => {
-
+CommandManager.registerCommand(new Command('log', 'log -f', 'Displays the log -f means to follow the log', (cmd, args) => {
+    console.log(cmd, args);
+    if (args.length == 1) {
+        return SocketManager.logs;
+    }
+    if (args[1] && args[1] == '-f') {
+        SocketManager.logScreen = true;
+        return SocketManager.logs;
+    }
 }));
 
 CommandManager.registerCommand(new Command('machine', 'machine', 'Displays Only Machine Informations!', async () => {
