@@ -32,7 +32,7 @@ CommandManager.registerCommand(new Command('log', 'log -f', 'Displays the log -f
 
 }));
 
-CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', async () => {
+CommandManager.registerCommand(new Command('machine', 'machine', 'Displays Only Machine Informations!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
     const persistentData = SocketManager.getPersistentData();
@@ -41,6 +41,17 @@ CommandManager.registerCommand(new Command('info', 'info', 'Displays general inf
         'Hostname: ' + persistentData.host.hostname,
         'Platform: ' + persistentData.host.platform,
         'Home Directory: ' + persistentData.host.homedir,
+        'Machine Uptime: ' + secondsToNiceString(uptime),
+    ];
+}))
+
+CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', async () => {
+    const seconds = Math.round((Date.now() - startup) / 1000);
+    const uptime = (await SocketManager.getChangeData()).uptime;
+    const persistentData = SocketManager.getPersistentData();
+    return [
+        'General Information:',
+        'Hostname: ' + persistentData.host.hostname,
         'Socket Connected: ' + (SocketManager.socket.connected ? 'Opened' : 'Closed'),
         'Socket Authenticated: ' + (SocketManager.auth ? 'Authenticated' : 'Unauthenticated'),
         'System Uptime: ' + secondsToNiceString(seconds),
