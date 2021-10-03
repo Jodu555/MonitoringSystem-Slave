@@ -32,7 +32,7 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
         'The Machine is ruinning since ' + secondsToNiceString(uptime),
     ]
 }));
-CommandManager.registerCommand(new Command(['reload', 'rl'], 'reload / rl', 'Reloads the config file!', () => {
+CommandManager.registerCommand(new Command(['reload', 'rl'], 'reload / rl [-f / -l]', 'Reloads the config file! -f stands for force without loading the new file Default! -l Stands for loading with loading the new config file!', () => {
 
 }));
 CommandManager.registerCommand(new Command('exit', 'exit', 'Exits the log screen', () => {
