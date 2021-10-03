@@ -69,7 +69,11 @@ class commandManager {
     }
 
     registerCommand(command) {
-        this.commands.set(command.command.toLowerCase(), command);
+        if (typeof command.command === 'string')
+            this.commands.set(command.command.toLowerCase(), command);
+        if (Array.isArray(command.command))
+            command.command.forEach(commands => this.commands.set(commands.toLowerCase(), command));
+
     }
 }
 
