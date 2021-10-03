@@ -2,6 +2,7 @@ const fs = require('fs');
 const startup = Date.now();
 const { commandManager, Command } = require('./commandManager');
 
+
 //Config Stuff
 let config;
 if (fs.existsSync('config.json')) {
@@ -27,12 +28,13 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
         'The Machine is ruinning since ' + secondsToNiceString(uptime),
     ]
 }));
+CommandManager.registerCommand(new Command(['reload', 'rl'], 'reload / rl', 'Reloads the config file!', () => {
 
+}));
 CommandManager.registerCommand(new Command('exit', 'exit', 'Exits the log screen', () => {
     SocketManager.logScreen = false;
     return 'You left the log screen!';
 }));
-
 CommandManager.registerCommand(new Command('log', 'log -f/-x', 'Displays the log -f means to follow the log! & -x means to stop following the log!', (cmd, args) => {
     if (args.length == 1) {
         return SocketManager.logs;
@@ -47,7 +49,6 @@ CommandManager.registerCommand(new Command('log', 'log -f/-x', 'Displays the log
         return 'You left the log screen!';
     }
 }));
-
 CommandManager.registerCommand(new Command('machine', 'machine', 'Displays Only Machine Informations!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
@@ -60,7 +61,6 @@ CommandManager.registerCommand(new Command('machine', 'machine', 'Displays Only 
         'Machine Uptime: ' + secondsToNiceString(uptime),
     ];
 }))
-
 CommandManager.registerCommand(new Command('info', 'info', 'Displays general informations over the system!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
     const uptime = (await SocketManager.getChangeData()).uptime;
@@ -74,7 +74,6 @@ CommandManager.registerCommand(new Command('info', 'info', 'Displays general inf
         'Machine Uptime: ' + secondsToNiceString(uptime),
     ];
 }));
-
 CommandManager.registerCommand(new Command('set', 'set [authkey/key, coreip/ip]', 'Sets the Config value\'s!', (cmd, args) => {
     if (!args[1])
         return 'Please provide a key!';
