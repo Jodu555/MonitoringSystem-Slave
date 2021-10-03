@@ -2,10 +2,18 @@
 
 class Command {
     constructor(command, usage, description, callback) {
+        this.ID = this.generateID();
         this.command = command;
         this.usage = usage;
         this.description = description;
         this.callback = callback;
+    }
+    generateID() {
+        const min = 999999,
+            max = 9999999999;
+        return Math.floor(
+            Math.random() * (max - min) + min
+        )
     }
 }
 
@@ -39,14 +47,27 @@ class commandManager {
         });
         cli.prompt();
         this.initializeDefaultCommands();
+        this.getAllCommandWithoutAliases();
+    }
+
+    getAllCommandWithoutAliases() {
+        const validIds = [];
+        const finalCommands = [];
+        this.commands.forEach(e1 => {
+            if (!validIds.includes(e1.ID)) {
+                validIds.push(e1.ID);
+                finalCommands.push(e1);
+            }
+        });
+        return finalCommands;
     }
 
     initializeDefaultCommands() {
         this.registerCommand(new Command('help', 'help', 'Description', (command, args, sender) => {
             console.log(' ------------------- HELP -------------------');
             console.log(' ');
-            this.commands.forEach(command => {
-                console.log('=> ' + command.command + ' : ' + command.usage + ' : ' + command.description);
+            this.getAllCommandWithoutAliases().forEach(command => {
+                console.log('=> ' + (Array.isArray(command.command) ? command.command.join(', ') : command.command) + ' : ' + command.usage + ' : ' + command.description);
             });
             console.log(' ');
             console.log(' ------------------- HELP -------------------');
