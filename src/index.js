@@ -5,8 +5,8 @@ const { commandManager, Command } = require('./commandManager');
 
 //Config Stuff
 let config;
-manageConfig();
-function manageConfig() {
+initConfig();
+function initConfig() {
     if (fs.existsSync('config.json')) {
         config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
     } else {
@@ -32,8 +32,21 @@ CommandManager.registerCommand(new Command('uptime', 'uptime', 'Displays the sec
         'The Machine is ruinning since ' + secondsToNiceString(uptime),
     ]
 }));
-CommandManager.registerCommand(new Command(['reload', 'rl'], 'reload / rl [-f / -l]', 'Reloads the config file! -f stands for force without loading the new file Default! -l Stands for loading with loading the new config file!', () => {
-
+CommandManager.registerCommand(new Command(['reload', 'rl'], 'reload / rl [-f / -l]', 'Reloads the config file! -f stands for force without loading the new file Default! -l Stands for loading with loading the new config file!', (cmd, args) => {
+    if (args.length == 1) {
+        SocketManager.configChange(config);
+        return 'Reloaded without new config file!'
+    }
+    if (args[1] && args[1] == '-f') {
+        SocketManager.configChange(config);
+        return 'Reloaded without new config file!'
+    }
+    if (args[1] && args[1] == '-l') {
+        initConfig();
+        SocketManager.configChange(config);
+        return 'Reloaded with new config file!'
+    }
+    return 'Failed: Type \'help\' for help!';
 }));
 CommandManager.registerCommand(new Command('exit', 'exit', 'Exits the log screen', () => {
     SocketManager.logScreen = false;
@@ -52,6 +65,7 @@ CommandManager.registerCommand(new Command('log', 'log -f/-x', 'Displays the log
         SocketManager.logScreen = false;
         return 'You left the log screen!';
     }
+    return 'Failed: Type \'help\' for help!';
 }));
 CommandManager.registerCommand(new Command('machine', 'machine', 'Displays Only Machine Informations!', async () => {
     const seconds = Math.round((Date.now() - startup) / 1000);
