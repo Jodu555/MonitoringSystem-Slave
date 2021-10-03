@@ -64,13 +64,13 @@ class commandManager {
 
     initializeDefaultCommands() {
         this.registerCommand(new Command('help', 'help', 'Description', (command, args, sender) => {
-            console.log(' ------------------- HELP -------------------');
+            console.log('------------------- HELP -------------------');
             console.log(' ');
             this.getAllCommandWithoutAliases().forEach(command => {
                 console.log('=> ' + (Array.isArray(command.command) ? command.command.join(', ') : command.command) + ' : ' + command.usage + ' : ' + command.description);
             });
             console.log(' ');
-            console.log(' ------------------- HELP -------------------');
+            console.log('------------------- HELP -------------------');
         }))
     }
 
